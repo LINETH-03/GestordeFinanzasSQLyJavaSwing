@@ -38,6 +38,8 @@ public class Ingresos extends javax.swing.JFrame  {
 
         // Resto del código del constructor de NuevaVentana
     }
+       
+    
 
     /**
      * Creates new form Ingresos
@@ -498,8 +500,11 @@ try {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         
-        Home oforma = new Home();
-        oforma.setVisible(true);
+        dispose();
+    
+    // Abrir la ventana anterior (ventana anteriormente abierta)
+    Home ventanaAnterior = new Home();
+    ventanaAnterior.setVisible(true);
 
     }//GEN-LAST:event_jButton2ActionPerformed
 

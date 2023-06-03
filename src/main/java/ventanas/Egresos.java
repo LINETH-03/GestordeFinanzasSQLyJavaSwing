@@ -229,8 +229,11 @@ public class Egresos extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Home oforma = new Home();
-        oforma.setVisible(true);
+        dispose();
+    
+    // Abrir la ventana anterior (ventana anteriormente abierta)
+    Home ventanaAnterior = new Home();
+    ventanaAnterior.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void BTNegresosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNegresosActionPerformed

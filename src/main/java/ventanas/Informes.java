@@ -4,12 +4,34 @@
  */
 package ventanas;
 
+import CLASES.Conection;
+import CLASES.DatosCompartidos;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author herna
  */
 public class Informes extends javax.swing.JFrame {
 
+    private String nombreAnterior;
+       private String contraseñaAnterior;
+       
+       
+       public Informes(String name, String pass) {
+         String nombreAnterior = DatosCompartidos.name;
+        String contraseñaAnterior = DatosCompartidos.pass;
+        
+       
+
+        // Resto del código del constructor de NuevaVentana
+    }
     /**
      * Creates new form Informes
      */
@@ -28,16 +50,18 @@ public class Informes extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TBLINFORME = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
         jLabel1.setText("INFORMES");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TBLINFORME.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 14)); // NOI18N
+        TBLINFORME.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -48,7 +72,7 @@ public class Informes extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TBLINFORME);
 
         jButton1.setText("Atras");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -57,12 +81,19 @@ public class Informes extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setText("jTextField1");
-
-        jButton2.setText("Back");
+        jButton2.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 14)); // NOI18N
+        jButton2.setText("GENERAR INFORME");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 18)); // NOI18N
+        jButton3.setText("Mostrar informe actual ");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -70,39 +101,40 @@ public class Informes extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 121, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(139, 139, 139))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton3)
+                        .addGap(35, 35, 35)
+                        .addComponent(jButton2)
+                        .addGap(131, 131, 131))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 77, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(74, 74, 74))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(143, 143, 143)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addGap(30, 30, 30))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(jButton2))
-                    .addComponent(jButton1))
-                .addGap(27, 27, 27)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60))
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addGap(59, 59, 59))
         );
 
         pack();
@@ -110,17 +142,112 @@ public class Informes extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Home oforma = new Home();
-        oforma.setVisible(true);
+       dispose();
+    
+    // Abrir la ventana anterior (ventana anteriormente abierta)
+    Home ventanaAnterior = new Home();
+    ventanaAnterior.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:{
         
-        Home oforma = new Home();
-        oforma.setVisible(true);
+        informe();
+        Mostrartablainforme();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        Mostrartablainforme();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    public void informe(){
+        
+        String nombreAnterior = DatosCompartidos.name;
+        String contraseñaAnterior = DatosCompartidos.pass;
+        try {
+            // Establecer la conexión con la base de datos
+            Connection connection = Conection.getConexion();
+            // Preparar la llamada al procedimiento almacenado
+            String sql = "{CALL CalcularInforme(?, ?)}";
+            CallableStatement statement = connection.prepareCall(sql);
+
+            // Establecer los parámetros del procedimiento almacenado
+            statement.setString(1, nombreAnterior);
+            statement.setString(2, contraseñaAnterior);
+
+            // Ejecutar el procedimiento almacenado
+            statement.execute();
+
+            // Cerrar los recursos
+            statement.close();
+            connection.close();
+
+            System.out.println("Procedimiento almacenado ejecutado correctamente.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void Mostrartablainforme(){
+        
+           
+        String nombreAnterior = DatosCompartidos.name;
+        String contraseñaAnterior = DatosCompartidos.pass;
+
+// Realizar la consulta para obtener los datos relacionados
+String query = "SELECT * FROM Informe WHERE IdUsuario IN (SELECT IdUsuario FROM CrearUsuario WHERE Nombres = ? AND Contraseña = ?)";
+try {
+    Connection connection = Conection.getConexion();
+    PreparedStatement statement = connection.prepareStatement(query);
+    statement.setString(1, nombreAnterior);
+    statement.setString(2, contraseñaAnterior);
+    ResultSet resultSet = statement.executeQuery();
+
+    // Crear un modelo de tabla
+    DefaultTableModel model = new DefaultTableModel();
+
+    // Configurar las columnas y encabezados
+    ResultSetMetaData metaData = resultSet.getMetaData();
+    int columnCount = metaData.getColumnCount();
+    for (int i = 1; i <= columnCount; i++) {
+        model.addColumn(metaData.getColumnName(i));
+    }
+
+    // Recorrer los resultados y agregar las filas al modelo
+    while (resultSet.next()) {
+        Object[] row = new Object[columnCount];
+        for (int i = 1; i <= columnCount; i++) {
+            row[i - 1] = resultSet.getObject(i);
+        }
+        model.addRow(row);
+    }
+
+    // Asignar el modelo a la tabla
+   TBLINFORME.setModel(model);
+
+    // Cerrar los recursos
+    resultSet.close();
+    statement.close();
+    connection.close();
+} catch (SQLException e) {
+    e.printStackTrace();
+}
+
+    
+    
+    
+    
+    }
+
+    
+    
+    
+    
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -157,11 +284,11 @@ public class Informes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TBLINFORME;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
